@@ -73,3 +73,20 @@
 	}
 	console.log(addNum(1,2,3,4));
 }
+
+{
+	// Array
+	// string[] 을 더 많이 사용한다. readonly를 사용할 수 있음.
+	const fruits: string[] = ['apple', 'banana'];
+	const scores: Array<number> = [1, 2, 3];
+	function printArr(fruits: readonly string[]) {
+		// fruits.push('d'); // 수정 불가
+	}
+
+	// Tuple => 사용을 권장하지 않는다.(가독성이 좋지 않아서)
+	// => interface, type alias, class 로 대체해서 사용하는 것이 좋다.
+	let student: [string, number];
+	student = ['name', 123];
+	student[0]; // name
+	student[1]; // 123
+}
