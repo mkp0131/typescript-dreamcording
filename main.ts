@@ -90,3 +90,67 @@
 	student[0]; // name
 	student[1]; // 123
 }
+
+{
+	// aliases (커스텀 타입 생성)
+	type Text = string;
+	const name:Text = 'df';
+	type Student = {
+		name: string,
+		age: number,
+	}
+	const kan:Student = {
+		name: 'asdas',
+		age: 23,
+	}
+	// String Literal Types (지정한 문자열밖에 값으로 할당할 수 있다.)
+	type Name = 'name';
+	let mkpName:Name;
+	mkpName = 'name';
+}
+
+{
+	// Union Types: OR
+	type Direction = 'left'|'right'|'up'|'down';
+	function move(direction: Direction) {
+		console.log('direction', direction);
+	}
+	move('down');
+	type TileSize = 6|9|15;
+	const tile: TileSize = 15;
+
+	type SuccessSate = {
+		result: 'success',
+		response: {
+			body: string;
+		}
+	}
+	type FailState = {
+		result: 'fail',
+		reason: string;
+	}
+	type LoginState = SuccessSate|FailState
+	function login(id:string, password: string):Promise<LoginState> {
+		return new Promise((res, rej) => {
+			res(
+				{
+					result: 'success',
+					response: {
+						body: 'logged in!'
+					}
+				}
+			)
+		})
+	}
+
+	// printLoginState(state)
+	// success -> 💫 body -> 💥 reason
+	function printLoginState(state:LoginState) {
+		if(state.result == 'success') {
+			console.log(state.response.body);
+		}
+		else {
+			console.log(state.reason);
+		}
+	}
+}
