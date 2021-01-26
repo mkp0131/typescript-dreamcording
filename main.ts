@@ -129,30 +129,30 @@
 		result: 'fail',
 		reason: string;
 	}
-	type LoginState = SuccessSate|FailState
-	function login(id:string, password: string):Promise<LoginState> {
-		return new Promise((res, rej) => {
-			res(
-				{
-					result: 'success',
-					response: {
-						body: 'logged in!'
-					}
-				}
-			)
-		})
-	}
+	// type LoginState = SuccessSate|FailState
+	// function login(id:string, password: string):Promise<LoginState> {
+	// 	return new Promise((res, rej) => {
+	// 		res(
+	// 			{
+	// 				result: 'success',
+	// 				response: {
+	// 					body: 'logged in!'
+	// 				}
+	// 			}
+	// 		)
+	// 	})
+	// }
 
 	// printLoginState(state)
 	// success -> 💫 body -> 💥 reason
-	function printLoginState(state:LoginState) {
-		if(state.result == 'success') {
-			console.log(state.response.body);
-		}
-		else {
-			console.log(state.reason);
-		}
-	}
+	// function printLoginState(state:LoginState) {
+	// 	if(state.result == 'success') {
+	// 		console.log(state.response.body);
+	// 	}
+	// 	else {
+	// 		console.log(state.reason);
+	// 	}
+	// }
 }
 
 {
@@ -175,4 +175,59 @@
 		empolyeeId: 23,
 		work: () => {},
 	})
+}
+
+{
+	// Enum (여러가지 상수값을 모아놓은 것)
+	const MAX_NUM = 6;
+	const MAX_STUDENTS_PER_CLASS = 10;
+	const MONDAY = 0;
+	const TUESDAY = 1;
+	const WEDNESDAY = 2;
+	const DAYS_ENUM = Object.freeze({MONDAY: 0, TUESDAY: 1, WEDNESDAY: 2});
+	const dayOfToday = DAYS_ENUM.TUESDAY;
+
+	// enum 에 따로 값을 정하지 않으면 index 가 값이 된다.
+	// 값을 숫자로지정한다면 그 전값에 + 1
+	// 가능한 쓰지 않는게 좋다.
+	enum Days {
+		Monday,
+		Tuesday,
+		Wednesday,
+		Thursday,
+		Friday,
+		Saturday,
+		Sunday
+	}
+
+	console.log('Days', Days.Tuesday);
+}
+
+{
+	// Type Inference (타입유추)
+
+	// 타입을 선언하지 않았지만 알아서 타입을 지정한다.
+	let text = 'hello';
+	// text = 1;
+
+	function print(msg: string) {
+		console.log(msg);
+	}
+	// print(1) // 에러
+
+	// 숫자를 return 받는다고 유추함.
+	function add1(x:number, y:number) {
+		return x + y;
+	}
+	// 숫자를 return 받는다고 유추함.
+	const result = add1(1,2);
+}
+
+{
+	// Type Assertions
+	function strFn(): any {
+		return 12;
+	}
+	const rrr = strFn();
+	console.log('rrr.length', rrr.length);
 }
