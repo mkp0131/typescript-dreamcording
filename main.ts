@@ -154,3 +154,25 @@
 		}
 	}
 }
+
+{
+	// Intersection Types: & (여러가지 Type 동시에 받기)
+	type Student = {
+		name: string,
+		score: number,
+	}
+	type Worker = {
+		empolyeeId: number,
+		work: () => void,
+	}
+	// 여러가지 type 을 동시에 맏을경우 모든 요소가 다 있어야된다.
+	function internWork(person: Student & Worker) {
+		console.log(person.name, person.empolyeeId, person.work());
+	}
+	internWork({
+		name: 'dfdf',
+		score: 12,
+		empolyeeId: 23,
+		work: () => {},
+	})
+}
