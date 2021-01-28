@@ -74,8 +74,6 @@ acceptSomeObject({name: 'mkp'});
 > null: 비어있는게 확정적인 값, undefined: 말그대로 모르는 값
 
 
-2. 함수타입이용
-
-```
-
-```
+## typescript class
+1. static 클래스레벨에 저장하는 변수
+2. private 외부에서 접근 불가능한 멤버 (명시 하지 않는다면 모두 public 으로 지정되어있다.)
