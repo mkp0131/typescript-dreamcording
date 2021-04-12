@@ -1,10 +1,19 @@
-interface Coffee {
+type Coffee = {
 	shots: number;
 	hasMilk: boolean;
 }
 
+interface CoffeeMachine {
+	makeCoffee(shots: number): Coffee;
+}
 
-class CoffeMaker {
+interface ProCoffeeMachine {
+	makeCoffee(shots: number): Coffee;
+	fillBeans(gram: number): void;
+	clean(): void;
+}
+
+class CoffeMaker implements CoffeeMachine, ProCoffeeMachine {
 
 	private static BEANS_GRAM_PER_SHOT:number = 20;
 	private beansGram: number = 0;
@@ -22,36 +31,63 @@ class CoffeMaker {
 		this.beansGram += gram;
 	}
 
-	makeCoffee(shots: number):Coffee {
+	clean() {
+		console.log('clean 🍄');
+	}
+
+	private grindBeans(shots: number) {
+		console.log('Grind Beans 🧤');
 		const useBeansGram = shots * CoffeMaker.BEANS_GRAM_PER_SHOT;
 		if(useBeansGram > this.beansGram) {
 			throw new Error('Not enough beans!');
 		}
 		this.beansGram -= useBeansGram;
+	}
+
+	private preheatMachine() {
+		console.log('Preheat Machine 🔥');
+	}
+
+	private brewCoffee(shots: number):Coffee {
 		return {
 			shots,
 			hasMilk: false
 		}
 	}
 
+	makeCoffee(shots: number):Coffee {
+		this.grindBeans(shots);
+		this.preheatMachine();
+		return this.brewCoffee(shots);
+	}
+
 }
 
-// const coffeMaker1 = new CoffeMaker(50);
-// console.log('coffeMaker1', coffeMaker1);
-// const re1 = coffeMaker1.makeCoffee(2);
-// console.log('re1', re1);
-// console.log('coffeMaker1', coffeMaker1);
+console.log('====================================================');
+const maker1: ProCoffeeMachine = CoffeMaker.makeMachine(100);
+const maker2: CoffeeMachine = CoffeMaker.makeMachine(300);
 
-// console.log('====================', );
+class AmatuerBarista {
+	constructor(private machine: CoffeeMachine) {};
+	makeCoffee(shots) {
+		const coffee = this.machine.makeCoffee(shots);
+		console.log('coffee', coffee);
+	}
+}
+class ProBarista {
+	constructor(private machine: ProCoffeeMachine) {}
+	makeCoffee(shots) {
+		const coffee = this.machine.makeCoffee(shots);
+		console.log('coffee', coffee);
+		this.machine.fillBeans(1000);
+		this.machine.clean();
+		console.log('this.machine', this.machine);
+	}
+}
 
-const machine1 = CoffeMaker.makeMachine(100);
-console.log('machine1', machine1);
-const re2 = machine1.makeCoffee(3);
-console.log('re2', re2);
-console.log('machine1', machine1);
-machine1.fillBeans(100)
-console.log('machine1', machine1);
-
-console.log('====================', );
-
-// console.log('#', CoffeMaker.beansGram);
+const amatuer = new AmatuerBarista(maker2);
+amatuer.makeCoffee(2);
+console.log('===================', );
+const pro = new ProBarista(maker1);
+pro.makeCoffee(4);
+console.log('maker1', maker1);

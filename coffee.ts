@@ -1,4 +1,4 @@
-interface Coffee {
+type Coffee = {
 	shots: number;
 	hasMilk: boolean;
 }
