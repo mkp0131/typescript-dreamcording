@@ -77,3 +77,4 @@ acceptSomeObject({name: 'mkp'});
 ## typescript class
 1. static 클래스레벨에 저장하는 변수
 2. private 외부에서 접근 불가능한 멤버 (명시 하지 않는다면 모두 public 으로 지정되어있다.)
+3. protected  외부에서는 접근 불가 (class 를 상속받은 class 는 사용가능)
